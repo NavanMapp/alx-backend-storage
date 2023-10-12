@@ -1,4 +1,4 @@
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE ComputeAverageWeightedScoreForUsers()
 BEGIN
     DECLARE user_id INT;
@@ -47,5 +47,6 @@ BEGIN
         SET average_score = user_avg_score
         WHERE id = user_id;
     END LOOP;
-END //
+END
+$$
 DELIMITER ;
