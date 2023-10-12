@@ -1,18 +1,17 @@
-CREATE PROCEDURE ComputeAverageWeightedScoreForUser
-(
-    @user_id INT
-)
-AS
+DELIMITER //
+CREATE PROCEDURE ComputeAverageWeightedScoreForUser(IN user_id INT)
 BEGIN
-    DECLARE @average_weighted_score FLOAT;
+    DECLARE user_avg_weighted_score DECIMAL(10, 2);
 
-    SELECT @average_weighted_score = COALESCE(AVG(score * weight), 0)
+    -- Calculate the average weighted score for the user
+    SELECT AVG(score * weight) INTO user_avg_weighted_score
     FROM corrections
-    INNER JOIN projects ON corrections.project_id = projects.id
-    WHERE corrections.user_id = @user_id;
+    WHERE user_id = user_id;
 
-    UPDATE users SET average_score = @average_weighted_score
-    WHERE id = @user_id;
-
-    RETURN;
+    -- Update the user's average weighted score in the users table
+    UPDATE users
+    SET average_weighted_score = user_avg_weighted_score
+    WHERE id = user_id;
 END;
+//
+DELIMITER ;
