@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""
+Script to add the attribute "address" with the value "972 Mission street"
+to all documents with the name "Holberton school" in the "school" collection
+"""
+
+import sys
+import pymongo
+
+def add_address_to_documents(database_name):
+    # Create a MongoDB client
+    client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
+
+    # Access the specified database
+    db = client[database_name]
+
+    # Access the "school" collection
+    collection = db["school"]
+
+    # Update documents with name="Holberton school"
+    query = {"name": "Holberton school"}
+    update = {"$set": {"address": "972 Mission street"}}
+    result = collection.update_many(query, update)
+
+    # Print the update result
+    print(result)
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 script.py <database_name>")
+        sys.exit(1)
+
+    database_name = sys.argv[1]
+    add_address_to_documents(database_name)

@@ -1,0 +1,13 @@
+    #!/bin/bash
+
+# Check if the database name is provided as an argument
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <database_name>"
+    exit 1
+fi
+
+# Database name passed as an argument
+database_name=$1
+
+# Run the MongoDB shell command to list all documents in the 'school' collection
+echo 'db.school.find()' | mongo $database_name

@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+import pymongo
+
+def list_mongodb_databases():
+    # Connect to the MongoDB server
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+
+    # List all available databases
+    database_list = client.list_database_names()
+
+    # Filter out system databases
+    non_system_databases = [db for db in database_list if db not in ['admin', 'config', 'local']]
+
+    # Print the non-system databases
+    for db in non_system_databases:
+        print(db)
+
+if __name__ == "__main__":
+    list_mongodb_databases()

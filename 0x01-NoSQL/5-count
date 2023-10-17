@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""
+Script to display the number of documents in the "school" collection
+"""
+
+import sys
+import pymongo
+
+def count_documents(database_name):
+    # Create a MongoDB client
+    client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
+
+    # Access the specified database
+    db = client[database_name]
+
+    # Access the "school" collection
+    collection = db["school"]
+
+    # Get the count of documents in the collection
+    count = collection.count_documents({})
+
+    # Print the count
+    print(count)
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 script.py <database_name>")
+        sys.exit(1)
+
+    database_name = sys.argv[1]
+    count_documents(database_name)
