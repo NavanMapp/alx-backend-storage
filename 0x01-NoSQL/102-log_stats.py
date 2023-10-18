@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """ Log stats - new version """
+
 from pymongo import MongoClient
-
-
 def nginx_stats_check():
     """ provides some stats about Nginx logs stored in MongoDB:"""
     client = MongoClient()
@@ -39,7 +38,6 @@ def nginx_stats_check():
         count = top_ip.get("count")
         ip_address = top_ip.get("ip")
         print("\t{}: {}".format(ip_address, count))
-
-
 if __name__ == "__main__":
     nginx_stats_check()
+    
