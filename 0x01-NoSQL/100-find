@@ -1,3 +1,2 @@
-// Find all documents in the "school" collection with names starting by "Holberton"
-db = db.getSiblingDB('my_db');
-db.school.find({ "name": /^Holberton/i }).forEach(printjson);
+// lists all documents with name starting by Holberton in the collection school
+db.school.find({"name": { $regex: /^Holberton/ }})
